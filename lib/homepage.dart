@@ -1,3 +1,5 @@
+import 'package:firebase_to_do_app/popup.dart';
+import 'package:firebase_to_do_app/taskmodel.dart';
 import 'package:firebase_to_do_app/todomodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +9,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TodoModel x = TodoModel();
     return Scaffold(
       backgroundColor: Colors.deepOrangeAccent,
       body: Stack(
@@ -78,8 +81,10 @@ class HomePage extends StatelessWidget {
                       right: 30,
                       child: FloatingActionButton(
                         onPressed: () {
-                          Provider.of<TodoModel>(context, listen: false)
-                              .addTaskInList();
+                          createAlertDialog(context).then((value) =>
+                              Provider.of<TodoModel>(context, listen: false)
+                                  .addTaskInList(value!));
+                          print(x.taskList);
                         },
                         backgroundColor: Colors.blueAccent,
                         child: const Icon(
